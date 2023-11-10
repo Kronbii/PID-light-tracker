@@ -5,6 +5,8 @@ Servo yawServo;
 Servo pitchServo;
 int yawPin; //add a value
 int pitchPin; //add a value
+yawServo.attach(yawPin);
+pitchServo.attach(pitchPin);
 
 //Variables to store the PID gains
 float kp, kd, ki;
@@ -34,6 +36,9 @@ void yawControl(double output);
 void pitchControl(double output);
 
 void setup() {
+
+  pinMode(yawPin, OUTPUT);
+  pinMode(pitchPin, OUTPUT);
   // Initialize gain values
   kp = 1;
   kd= 1;
@@ -46,10 +51,6 @@ void setup() {
   kp2 = kp;
   kd2 = kd;
   ki2 = ki;
-
-  //Attach servos
-  yawServo.attach(yawPin);
-  pitchServo.attach(pitchPin);
 
   //Set servo motors to midpoint
   yawServo.writeMicroseconds(1500);
@@ -109,7 +110,7 @@ void loop() {
 
 double PID(double error, double prevError){
   derivError = error - prevError;
-  integError = error + integError;
+  integError = integError + error;
   return output = kp*error + kd*derivError + ki*integError;
 }
 
