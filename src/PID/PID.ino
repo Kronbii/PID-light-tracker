@@ -67,8 +67,16 @@ void loop() {
   readSensors();
 
   //update error values
+  if (s1 > s2){
+    setpoint = s1;
+    feedback = s2;
+  }
+  else if(s1< s2){
+    setpoint = s2;
+    feedback = s1;
+  }
   prevError1 = error1;
-  error1 = s1 - s2;
+  error1 = setpoint - feedback;
 
   //get output for PID using PID function
   output = PID(error1, prevError1);
@@ -80,8 +88,16 @@ void loop() {
   readSensors();
 
   //update error values
+  if (s3 > s4){
+    setpoint = s3;
+    feedback = s4;
+  }
+  else if(s3 < s4){
+    setpoint = s4;
+    feedback = s3;
+  }
   prevError2 = error2;
-  error2 = s3 - s4;
+  error2 = setpoint - feedback;
 
   //get output for PID using PID function
   output = PID(error2, prevError2);
