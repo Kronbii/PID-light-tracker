@@ -25,12 +25,13 @@ float s1, s2, s3, s4;
 double output;
 
 //error values
-double error, derivError, integError, prevError;
+double error1, error2, derivError, integError, prevError1, prevError2;
 
 //function definitions
-double PID_control(double error);
+double PID(double error);
 void readSensors();
-void PID_control();
+void yawControl(double output);
+void pitchControl(double output);
 
 void setup() {
   // Initialize gain values
@@ -54,18 +55,43 @@ void setup() {
   yawServo.writeMicroseconds(1500);
   pitchServo.writeMicroseconds(1500);
 
+  //initialize error values
+  prevError1 = 0;
+  error1 = 0;
+  prevError2 = 0;
+  error2 = 0;
 }
 
 void loop() {
   //read data from sensors using read function
   readSensors();
-  //get output for PID using PID function
 
-  //convert output to a servo position
-  //update servo position
+  //update error values
+  prevError1 = error1;
+  error1 = s1 - s2;
+
+  //get output for PID using PID function
+  output = PID(error1, prevError1);
+
+  //convert output to a servo position and update 
+  yawControl(output);
+
+  //Same code for pitch control
+  readSensors();
+
+  //update error values
+  prevError2 = error2;
+  error2 = s3 - s4;
+
+  //get output for PID using PID function
+  output = PID(error2, prevError2);
+
+  //convert output to a servo position and update 
+  pitchControl(output);
+
 }
 
-double PID_control(double error, double prevError){
+double PID(double error, double prevError){
   derivError = error - prevError;
   integError = error + integError;
   return output = kp*error + kd*derivError + ki*integError;
@@ -83,12 +109,14 @@ void readSensors(){
 
 }
 
-void PID_control(double output){
+void yawControl(double output){
   //1500 is midpoint, 1000 is fully ccw, 2000 is fully cw
   //control servo motors (write.Microseconds)
   yawServo.writeMicroseconds(1500 + output);
-  yawServo.writeMicroseconds(1500 + output);
-  
 }
+
+void pitchControl(double output){
+  pitchServo.writeMicroseconds(1500 + output);
+  }
 
 
