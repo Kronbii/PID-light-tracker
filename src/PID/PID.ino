@@ -91,6 +91,7 @@ void loop() {
 
   //get output for PID using PID function
   output = PID(error1, prevError1);
+  output = constrain(output, -500, 500);
 
   //convert output to a servo position and update 
   yawControl(output);
@@ -106,6 +107,7 @@ void loop() {
 
   //get output for PID using PID function
   output = PID(error2, prevError2);
+  output = constrain(output, -500, 500);
 
   //convert output to a servo position and update 
   pitchControl(output);
@@ -139,5 +141,3 @@ void yawControl(double output){
 void pitchControl(double output){
   pitchServo.writeMicroseconds(1500 + output);
   }
-
-
