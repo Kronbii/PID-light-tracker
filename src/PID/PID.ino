@@ -67,15 +67,25 @@ void loop() {
   //read data from sensors using read function
   readSensors();
 
-  //update error values
+  //update error values for yaw
   if (s1 > s2){
     setpoint = s1;
     feedback = s2;
   }
-  else if(s1< s2){
+  else if(s1 < s2){
     setpoint = s2;
     feedback = s1;
   }
+
+  if (s3 > s4){
+    setpoint += s3;
+    feedback += s4;
+  }
+  else if(s3 < s4){
+    setpoint += s4;
+    feedback += s3;
+  }
+
   prevError1 = error1;
   error1 = setpoint - feedback;
 
@@ -89,14 +99,8 @@ void loop() {
   readSensors();
 
   //update error values
-  if (s3 > s4){
-    setpoint = s3;
-    feedback = s4;
-  }
-  else if(s3 < s4){
-    setpoint = s4;
-    feedback = s3;
-  }
+  setpoint = s3 + s4;
+  feedback = s1 + s2;
   prevError2 = error2;
   error2 = setpoint - feedback;
 
