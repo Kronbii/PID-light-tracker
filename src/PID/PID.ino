@@ -10,12 +10,12 @@ pitchServo.attach(pitchPin);
 
 //Variables to store the PID gains
 float kp, kd, ki;
-float kp1, kd1, ki1;
-float kp2, kd2, ki2;
+float kpYaw, kdYaw, kiYaw;
+float kpPi, kdPi, kiPi;
 
 //Variables to store PID values
-float propValue1, integValue1, derivValue1;
-float propValue2, integValue2, derivValue2;
+float yawInteg, yawDeriv;
+float pitchInteg, pitchDeriv;
 
 //PID input and feedback
 float setpoint, feedback;
@@ -27,7 +27,7 @@ float s1, s2, s3, s4;
 double output;
 
 //error values
-double error1, error2, derivError, integError, prevError1, prevError2;
+double errorYaw, errorPitch, prevErrorYaw, prevErrorPitch, derivErrorYaw, derivErrorPitch, integErrorYaw, integErrorPitch;
 
 //function definitions
 double PID(double error);
@@ -88,6 +88,12 @@ void loop() {
 
   prevError1 = error1;
   error1 = setpoint - feedback;
+
+  /*
+  max setpoint = 2048
+  min feedback = 0
+  max error = 2048
+  */
 
   //get output for PID using PID function
   output = PID(error1, prevError1);
