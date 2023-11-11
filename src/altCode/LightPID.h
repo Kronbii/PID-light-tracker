@@ -25,7 +25,6 @@ class Yaw {
     this->error = error;
     derivError = this->error + prevError;
     integError += this->error;
-    prevError = this->error;
     return output = kp*this->error + kd*derivError + ki*integError;
   }
 
@@ -35,17 +34,9 @@ class Yaw {
   }
 };
 
+
 class Pitch : public Yaw{
   public:
-  pitch(double kp, double kd, double ki, int servoPin){
-    this->kp = kp;
-    this->kd = kd;
-    this->ki = ki;
-    integError = 0;
-    derivError = 0;
-    error = 0;
-    prevError = 0;
-    this->servoPin = servoPin;
-    servo.attach(servoPin);
-  }
+  Pitch(double kp, double kd, double ki, int servoPin) : Yaw(kp, kd, ki, servoPin) {}
 };
+
