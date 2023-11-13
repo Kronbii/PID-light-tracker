@@ -6,6 +6,7 @@ void readSensors();
 double s1,s2,s3,s4;
 double setpoint, feedback;
 double output;
+double curError;
 ////////////////////////////////////////////////////////////////////////////
 
 Yaw yaw(1, 1, 1, 9);
@@ -23,6 +24,7 @@ void setup() {
 
   setpoint = 0;
   feedback = 0;
+  curError = 0;
 }
 
 void loop() {
@@ -47,20 +49,22 @@ void loop() {
     feedback += s3;
   }
 
-  yaw.prevError = yaw.error;
-  yaw.error = setpoint - feedback;
+  //yaw.prevError = yaw.error;
+  //yaw.error = setpoint - feedback;
+  curError = setpoint - feedback;
 
-  output = yaw.calculatePID(yaw.error);
+  output = yaw.calculatePID(curError);
   yaw.controlServo(output);
 
   readSensors();
 
   setpoint = s3 + s4;
   feedback = s1 + s2;
-  pitch.prevError = pitch.error;
-  pitch.error = setpoint - feedback;
 
-  output = pitch.calculatePID(pitch.error);
+  //pitch.prevError = pitch.error;
+  curError = setpoint - feedback;
+
+  output = pitch.calculatePID(curError);
   pitch.controlServo(output);
 
 }

@@ -22,8 +22,9 @@ class Yaw {
 
   double calculatePID(double error){
     double output;
+    prevError = this->error;
     this->error = error;
-    derivError = this->error + prevError;
+    derivError = this->error - prevError;
     integError += this->error;
     return output = kp*this->error + kd*derivError + ki*integError;
   }
