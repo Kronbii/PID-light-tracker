@@ -9,8 +9,8 @@ double output;
 double curError;
 ////////////////////////////////////////////////////////////////////////////
 
-Yaw yaw(1, 1, 1, 9);
-Pitch pitch(1, 1, 1, 11);
+Yaw yaw(10, 100, 1, 6);
+Pitch pitch(1, 1, 1, 5);
 
 
 void readSensors();
@@ -32,14 +32,14 @@ void loop() {
 
   //update error values for yaw
   if (s1 > s2){
-    setpoint = s1;
-    feedback = s2;
+    setpoint = s1 + s3;
+    feedback = s2 + s4;
   }
   else if(s1 < s2){
-    setpoint = s2;
-    feedback = s1;
+    setpoint = s2 + s4;
+    feedback = s1 + s3;
   }
-
+/*
   if (s3 > s4){
     setpoint += s3;
     feedback += s4;
@@ -48,7 +48,7 @@ void loop() {
     setpoint += s4;
     feedback += s3;
   }
-
+*/
   //yaw.prevError = yaw.error;
   //yaw.error = setpoint - feedback;
   curError = setpoint - feedback;
@@ -65,7 +65,7 @@ void loop() {
   curError = setpoint - feedback;
 
   output = pitch.calculatePID(curError);
-  pitch.controlServo(output);
+  //pitch.controlServo(output);
 
 }
 

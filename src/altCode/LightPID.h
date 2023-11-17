@@ -26,12 +26,15 @@ class Yaw {
     this->error = error;
     derivError = this->error - prevError;
     integError += this->error;
-    return output = kp*this->error + kd*derivError + ki*integError;
+    output = kp*this->error + kd*derivError + ki*integError;
+    if (output > 2000) output = 2300;
+    if (output< 500) output = 500;
+    return output;
   }
 
   void controlServo(double output){
     output = int(output);
-    servo.writeMicroseconds(1500 + output);
+    servo.writeMicroseconds(output);
   }
 };
 
