@@ -78,9 +78,9 @@ void loop() {
 
 void readSensors(){
   s2 = analogRead(A0);
-  s4 = analogRead(A2);
-  s1 = analogRead(A3);
-  s3 = analogRead(A4);
+  s4 = analogRead(A1);
+  s1 = analogRead(A2);
+  s3 = analogRead(A3);
   
   s1 = s1 * 5.00/1023;
   s2 = s2 * 5.00/1023;
@@ -92,4 +92,5 @@ void readSensors(){
     Serial.println(s3);
      Serial.println(s4);
       Serial.println("");
+      delay(1000);
 }
