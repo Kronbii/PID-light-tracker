@@ -44,6 +44,4 @@ class Yaw {
 class Pitch : public Yaw{
   public:
   Pitch(double kp, double kd, double ki, int servoPin) : Yaw(kp, kd, ki, servoPin) {}
-  
-  
 };

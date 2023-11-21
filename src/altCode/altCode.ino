@@ -19,12 +19,14 @@ void readSensors();
 
 void setup() {
   Serial.begin(9600);
+
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
 
   setpoint = 0;
   feedback = 0;
   curError = 0;
+
   yawServo.attach(9);
   pitchServo.attach(10);
 
@@ -36,7 +38,7 @@ void loop() {
   readSensors();
 
   //update error values for yaw
-  if (s1 > s2){
+  if ((s1 + s3) > (s2 + s4)){
     setpoint = (s1 + s3)/2.00;
     feedback = (s2 + s4)/2.00;
   }
@@ -45,16 +47,17 @@ void loop() {
     feedback = (s1 + s3)/2.00;
   }
 
-  //yaw.prevError = yaw.error;
-  //yaw.error = setpoint - feedback;
+  //calculating error
   curError = setpoint - feedback;
 
   output = yaw.calculatePID(curError);
   yawServo.write(90 + output);
  
+  //pitch control
   readSensors();
   
-  if(s3 > s1){
+  if((s1 + s2) > (s3 + s4))
+  {
   setpoint = (s3 + s4)/2.00;
   feedback = (s1 + s2)/2.00;
   }
@@ -63,16 +66,14 @@ void loop() {
     feedback = (s3 + s4)/2.00;
   }
   
-  //pitch.prevErrvcxr = pitch.error;
   curError = setpoint - feedback;
 
   output = pitch.calculatePID(curError);
+  
   if (output > 25) output = 25;
   if (output < -25) output = -25;
-  Serial.println(output);
-  delay(1000);
-  
-  //pitchServo.write(90 + output);
+
+  pitchServo.write(90 + output);
 }
 
 void readSensors(){
