@@ -26,7 +26,8 @@ class Yaw {
     this->error = error;
     derivError = this->error - prevError;
     integError += this->error;
-    output = kp*error + kd*derivError + ki*integError;
+    output = kp*this->error + kd*derivError + ki*integError;
+    output = int(output);
     if (output > 90) output = 90;
     if (output < -90) output = -90;
     return output;
@@ -34,13 +35,15 @@ class Yaw {
 /*
   void controlServo(double output){
     output = int(output);
-    servo.write(output);
+    servo.writeMicroseconds(1500 + output);
   }
-*/
+  */
 };
+
 
 class Pitch : public Yaw{
   public:
   Pitch(double kp, double kd, double ki, int servoPin) : Yaw(kp, kd, ki, servoPin) {}
+  
+  
 };
-
