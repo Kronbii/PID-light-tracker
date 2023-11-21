@@ -18,12 +18,12 @@ double setpoint, output, feedback;
 double s1, s2, s3 ,s4;
 
 //Specify the links and initial tuning parameters
-double Kp=10, Ki=0, Kd=0.000;
+double Kp=10000, Ki=0, Kd=0.000;
 PID myPID(&feedback, &output, &setpoint, Kp, Ki, Kd, DIRECT);
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(19200);
   //initialize the variables we're linked to
   //Input = analogRead(PIN_INPUT);
   //Setpoint = 100;
@@ -55,9 +55,13 @@ void loop()
   }
 
   myPID.Compute();
-  output = map(output,0,1023,500,2000);
+  output = output * 180.000/1023;
+
+  Serial.print("output = ");
+  Serial.println(output);
+  delay(2000);
   output = int(output);
-  //yaw.writeMicroseconds(output);
+  yaw.write(output);
 
   readSensors();
   if (s1 < s3){
@@ -80,6 +84,13 @@ void readSensors(){
   s2 = analogRead(A1);
   s3 = analogRead(A2);
   s4 = analogRead(A3);
+
+ s1 = s1 * 5.00/1023;
+ s2 = s2 * 5.00/1023;
+ s3 = s3 * 5.00/1023;
+ s4 = s4 * 5.00/1023;
+
+/*
   Serial.print("s1 = ");
   Serial.println(s1);
   Serial.print("s2 = ");
@@ -90,6 +101,7 @@ void readSensors(){
   Serial.println(s4);
   Serial.println("");
   delay(5000);
+  */
 }
 
 
