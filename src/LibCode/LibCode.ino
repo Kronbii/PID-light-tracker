@@ -6,12 +6,6 @@
 
 Servo yaw;
 Servo pitch;
-/*
-#define s1 A0
-#define s2 A1
-#define s3 A2
-#define s4 A3
-*/
 
 //Define Variables we'll be connecting to
 double setpoint, output, feedback;
@@ -56,10 +50,6 @@ void loop()
 
   myPID.Compute();
   output = output * 180.000/1023;
-
-  Serial.print("output = ");
-  Serial.println(output);
-  delay(2000);
   output = int(output);
   yaw.write(output);
 
@@ -74,9 +64,9 @@ void loop()
   }
 
   myPID.Compute();
-  output = map(output,0,1023,500,2000);
+  output = output *180.000/1023;
   output = int(output);
-  //pitch.writeMicroseconds(output);
+  pitch.write(output);
 }
 
 void readSensors(){
@@ -90,18 +80,6 @@ void readSensors(){
  s3 = s3 * 5.00/1023;
  s4 = s4 * 5.00/1023;
 
-/*
-  Serial.print("s1 = ");
-  Serial.println(s1);
-  Serial.print("s2 = ");
-  Serial.println(s2);
-  Serial.print("s3 = ");
-  Serial.println(s3);
-  Serial.print("s4 = ");
-  Serial.println(s4);
-  Serial.println("");
-  delay(5000);
-  */
 }
 
 
