@@ -13,8 +13,8 @@ double output;
 double curError;
 ////////////////////////////////////////////////////////////////////////////
 
-Yaw yaw(0.03, 000, 0.0, 90, -90);
-Pitch pitch(0.03, 000, 0, 25, -25);
+Yaw yaw(0.3, 000, 0.0, -90, 90);
+Pitch pitch(0.15, 000, 0, -45, 45);
 
 void setup() {
   Serial.begin(9600);
@@ -49,12 +49,12 @@ void loop() {
   */
   
   output = yaw.calculatePID(curError);
-/*
+
   Serial.print("output = ");
   Serial.println(output);
   Serial.println("");
   delay(1000);
-  */
+ 
   yawServo.write(90 + output);
  
   //pitch control
@@ -66,11 +66,11 @@ void loop() {
   curError = setpoint - feedback;
 
   output = pitch.calculatePID(curError);
-
+/*
   Serial.print("output = ");
   Serial.println(output);
   delay(1000);
-  
+*/
   pitchServo.write(90 + output);
 }
 
@@ -85,13 +85,12 @@ void readSensors(){
   botl = botl * 5.00/1023;
   topr = topr * 5.00/1023;
   topl = topl * 5.00/1023;
-/*
+
   Serial.println(botr);
    Serial.println(botl);
     Serial.println(topr);
      Serial.println(topl);
       Serial.println("");
       delay(1000);
-      */
-
+*/
 }
