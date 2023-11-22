@@ -3,10 +3,10 @@
 class Yaw {
   public:
   double kp, kd, ki;
-  double integError, derivError, error, prevError;
+  double integError, derivError, error, prevError, min, max;
 
   // constructor
-  Yaw(double kp, double kd, double ki){
+  Yaw(double kp, double kd, double ki, double min, double max){
     this->kp = kp;
     this->kd = kd;
     this->ki = ki;
@@ -14,6 +14,8 @@ class Yaw {
     derivError = 0;
     error = 0;
     prevError = 0;
+    this->min = min;
+    this->max = max;
   }
 
   double calculatePID(double error){
@@ -23,8 +25,8 @@ class Yaw {
     derivError = this->error - prevError;
     integError += this->error;
     output = kp*this->error + kd*derivError + ki*integError;
-    if (output > 90) output = 90;
-    if (output < -90) output = -90;
+    if (output > max) output = max;
+    if (output < min) output = min;
     return output;
   }
 };

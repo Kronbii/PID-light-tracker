@@ -13,8 +13,8 @@ double output;
 double curError;
 ////////////////////////////////////////////////////////////////////////////
 
-Yaw yaw(30, 000, 0.0);
-Pitch pitch(30, 000, 0);
+Yaw yaw(0.03, 000, 0.0, 90, -90);
+Pitch pitch(0.03, 000, 0, 25, -25);
 
 
 void readSensors();
@@ -32,7 +32,7 @@ void setup() {
   yawServo.attach(yawPin);
   pitchServo.attach(pitchPin);
 
-  yawServo.write(0);
+  yawServo.write(90);
   pitchServo.write(90);
 }
 
@@ -75,10 +75,6 @@ void loop() {
   Serial.println(output);
   delay(1000);
   
-  
-  if (output > 25) output = 25;
-  if (output < -25) output = -25;
-
   pitchServo.write(90 + output);
 }
 
@@ -88,12 +84,11 @@ void readSensors(){
   s3 = analogRead(A2);
   s4 = analogRead(A3);
 
-  
+  /*
   s1 = s1 * 5.00/1023;
   s2 = s2 * 5.00/1023;
   s3 = s3 * 5.00/1023;
   s4 = s4 * 5.00/1023;
-
 /*
   Serial.println(s1);
    Serial.println(s2);
