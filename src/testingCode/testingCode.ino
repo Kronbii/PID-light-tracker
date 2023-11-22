@@ -7,7 +7,7 @@ const int yawPin = 9;
 const int pitchPin = 10;
 
 //////////////////////////////Sensor values/////////////////////////////////
-double s1,s2,s3,s4;
+double botr, botl, topr, topl;
 double setpoint, feedback;
 double output;
 double curError;
@@ -15,9 +15,6 @@ double curError;
 
 Yaw yaw(0.03, 000, 0.0, 90, -90);
 Pitch pitch(0.03, 000, 0, 25, -25);
-
-
-void readSensors();
 
 void setup() {
   Serial.begin(9600);
@@ -40,8 +37,8 @@ void loop() {
   readSensors();
 
   //update error values for yaw
-    setpoint = (s1 + s3)/2.00;
-    feedback = (s2 + s4)/2.00;
+    setpoint = (botr + topr)/2.00;
+    feedback = (botl + topl)/2.00;
     
   //calculating error
   curError = setpoint - feedback;
@@ -63,13 +60,12 @@ void loop() {
   //pitch control
   readSensors();
   
-  setpoint = (s1 + s2)/2.00;
-  feedback = (s3 + s4)/2.00;
+  setpoint = (botr + botl)/2.00;
+  feedback = (topr + topl)/2.00;
   
   curError = setpoint - feedback;
 
   output = pitch.calculatePID(curError);
-
 
   Serial.print("output = ");
   Serial.println(output);
@@ -79,21 +75,21 @@ void loop() {
 }
 
 void readSensors(){
-  s1 = analogRead(A0);
-  s2 = analogRead(A1);
-  s3 = analogRead(A2);
-  s4 = analogRead(A3);
+  botr = analogRead(A0);
+  botl = analogRead(A1);
+  topr = analogRead(A2);
+  topl = analogRead(A3);
 
   /*
-  s1 = s1 * 5.00/1023;
-  s2 = s2 * 5.00/1023;
-  s3 = s3 * 5.00/1023;
-  s4 = s4 * 5.00/1023;
+  botr = botr * 5.00/1023;
+  botl = botl * 5.00/1023;
+  topr = topr * 5.00/1023;
+  topl = topl * 5.00/1023;
 /*
-  Serial.println(s1);
-   Serial.println(s2);
-    Serial.println(s3);
-     Serial.println(s4);
+  Serial.println(botr);
+   Serial.println(botl);
+    Serial.println(topr);
+     Serial.println(topl);
       Serial.println("");
       delay(1000);
       */
