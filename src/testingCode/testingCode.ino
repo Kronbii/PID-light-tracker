@@ -3,8 +3,8 @@
 
 Servo yawServo;
 Servo pitchServo;
-const int yawPin = 9;
-const int pitchPin = 10;
+const int yawPin = 10;
+const int pitchPin = 6;
 
 //////////////////////////////Sensor values/////////////////////////////////
 double botr, botl, topr, topl;
@@ -56,6 +56,7 @@ void loop() {
   delay(1000);
  
   yawServo.write(90 + output);
+
  
   //pitch control
   readSensors();
