@@ -1,5 +1,3 @@
-#include <Servo.h>
-//////////////COUDL FIND INTENSITY AND DIVIDE IT BY SENSOR READINGS TO GET BETTER CALIBRATION//////////////////
 class Yaw {
   public:
   double kp, kd, ki;
