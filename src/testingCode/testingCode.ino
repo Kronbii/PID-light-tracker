@@ -10,7 +10,7 @@ const int pitchPin = 6;
 double botr, botl, topr, topl;
 double setpoint, feedback;
 double output;
-double curError; 0
+double curError;
 ////////////////////////////////////////////////////////////////////////////
 
 Yaw yaw(0.3, 000, 0.0, -90, 90);
