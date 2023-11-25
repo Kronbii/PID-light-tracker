@@ -19,8 +19,8 @@ void setup()
 {
   Serial.begin(19200);
   //initialize the variables we're linked to
-  //Input = analogRead(PIN_INPUT);
-  //Setpoint = 100;
+  feedback = 0;
+  setpoint = 0;
 
   //turn the PID on
   yaw.attach(yawPin);
@@ -28,44 +28,14 @@ void setup()
   myPID.SetMode(AUTOMATIC);
 }
 
-//S3////////////////////////////S4//
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-//S1////////////////////////////S2//
 
 void loop()
 {
   readSensors();
-
-  if (s1 < s2){
-    setpoint = (s2 + s4)/2.00;
-    feedback = (s1 + s3)/2.00;
-  }
-  else{
-    setpoint = (s1 + s3)/2.00;
-    feedback = (s2 + s4)/2.00;
-  }
-
+  setpoint = (botr + botl)/2.00;
+  feedback = (topr + topl)/2.00;
   myPID.Compute();
-  output = output * 180.000/1023;
-  output = int(output);
-  yaw.write(output);
-
-  readSensors();
-  if (s1 < s3){
-    setpoint = (s3 + s4)/2.00;
-    feedback = (s1 + s2)/2.00;
-  }
-  else{
-    setpoint = (s1 + s2)/2.00;
-    feedback = (s3 + s4)/2.00;
-  }
-
-  myPID.Compute();
-  output = output *180.000/1023;
-  output = int(output);
+  output = output * 180/1023;
   pitch.write(output);
 }
 
