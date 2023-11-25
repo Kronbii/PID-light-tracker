@@ -8,13 +8,13 @@ const int pitchPin = 6;
 
 //////////////////////////////Sensor values/////////////////////////////////
 double botr, botl, topr, topl;
-int    setpoint, feedback;
+double setpoint, feedback;
 double output;
 double curError;
 ////////////////////////////////////////////////////////////////////////////
 
 Yaw yaw(0.3, 000, 0.0, -90, 90);
-Pitch pitch(0.3, 0, 0, -45, 45);
+Pitch pitch(0.08, 0.09, 0, -45, 45);
 
 void setup() {
   Serial.begin(9600);
@@ -42,23 +42,23 @@ void loop() {
   
   curError = setpoint - feedback;
 
-  output = -pitch.calculatePID(curError);
+  output = pitch.calculatePID(curError);
 
   
   Serial.print("output = ");
   Serial.println(output);
   
   
-  pitchServo.write(90 + output);
+  pitchServo.write(90 - output);
 }
 
 void readSensors(){
   topl = analogRead(A0);
-  topr = analogRead(A1) - 150;
+  topr = analogRead(A1);
   botl = analogRead(A2);
   botr = analogRead(A3);
 
-  /*
+ /*
   botr = botr * 5.00/1023;
   botl = botl * 5.00/1023;
   topr = topr * 5.00/1023;
