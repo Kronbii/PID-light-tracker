@@ -34,30 +34,6 @@ void setup() {
 }
 
 void loop() {
-  readSensors();
-
-  //update error values for yaw
-    setpoint = (botr + topr)/2.00;
-    feedback = (botl + topl)/2.00;
-    
-  //calculating error
-  curError = setpoint - feedback;
-
-  /*
-  Serial.println(curError);
-  delay(1000);
-  */
-  
-  output = yaw.calculatePID(curError);
-
-  Serial.print("output = ");
-  Serial.println(output);
-  Serial.println("");
-  delay(1000);
- 
-  yawServo.write(90 + output);
-
- 
   //pitch control
   readSensors();
   
@@ -67,11 +43,7 @@ void loop() {
   curError = setpoint - feedback;
 
   output = pitch.calculatePID(curError);
-/*
-  Serial.print("output = ");
-  Serial.println(output);
-  delay(1000);
-*/
+
   pitchServo.write(90 + output);
 }
 
@@ -94,4 +66,28 @@ void readSensors(){
       Serial.println("");
       delay(1000);
 */
+}
+
+/////FILLER FUNCTION///////
+void yawCode(){
+  readSensors();
+
+  //update error values for yaw
+    setpoint = (botr + topr)/2.00;
+    feedback = (botl + topl)/2.00;
+    
+  //calculating error
+  curError = setpoint - feedback;
+
+  Serial.println(curError);
+  delay(1000);
+  
+  output = yaw.calculatePID(curError);
+
+  Serial.print("output = ");
+  Serial.println(output);
+  Serial.println("");
+  delay(1000);
+ 
+  yawServo.write(90 + output);
 }
