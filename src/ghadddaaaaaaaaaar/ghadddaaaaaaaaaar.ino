@@ -8,7 +8,7 @@ int ldrPin2 = A1;
 int ldrPin3 = A2;
 int ldrPin4 = A3;
 
-int panSetpoint = 90;
+int panSetpoint = 90;efsgjds
 int tiltSetpoint = 90;
 
 double Kp = 0.5;
