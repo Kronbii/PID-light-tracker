@@ -5,7 +5,7 @@ This light-tracking robot project offers a practical application of PID control 
 
 # Contributors: 
 Rami Kronbi - 20210359
-Wassim Ghaddar  - 2021xxxx
+Wassim Ghaddar  - 20210586
 
 # Files Description:
 - SRC: source Arduino code used for PID control
