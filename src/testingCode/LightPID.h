@@ -23,7 +23,7 @@ class Yaw {
     derivError = this->error - prevError;
     integError += this->error;
     output = kp*this->error + kd*derivError + ki*integError;
-   if (output > max) output = max;
+    if (output > max) output = max;
     else if (output < min) output = min;
     return output;
   }

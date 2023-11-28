@@ -14,7 +14,7 @@ double curError;
 ////////////////////////////////////////////////////////////////////////////
 
 Yaw yaw(0.3, 000, 0.0, -90, 90);
-Pitch pitch(0.08, 0.09, 0, -45, 45);
+Pitch pitch(60 , 1500, 0, -70, 70);
 
 void setup() {
   Serial.begin(9600);
@@ -44,10 +44,10 @@ void loop() {
 
   output = pitch.calculatePID(curError);
 
-  
+/*  
   Serial.print("output = ");
   Serial.println(output);
-  
+  */
   
   pitchServo.write(90 - output);
 }
@@ -65,14 +65,13 @@ void readSensors(){
   topl = topl * 5.00/1023;
 */
 
- /*
+ 
   Serial.println(botr);
    Serial.println(botl);
     Serial.println(topr);
      Serial.println(topl);
       Serial.println("");
       delay(1000);
-*/
 }
 
 /////FILLER FUNCTION///////
