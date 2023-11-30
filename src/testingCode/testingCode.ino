@@ -22,7 +22,7 @@ float setpoint1;
 float error1;
 //////////////////////////////PID Objects/////////////////////////////////
   Yaw yaw(0.07, 00.00018, 0.002, -90, 90);
-  Pitch pitch(0.07 , 0.00018, 0.002, -45, 45);
+  Pitch pitch(0.07 , 0.00018, 0.002, -45, 60);
 ////////////////////////////////////////////////////////////////////////////
 int per;
 void setup() {
@@ -50,14 +50,14 @@ void loop() {
   feedback = (topr + topl)/2.00;
   
   curError = setpoint - feedback;
-  per=(curError-setpoint)/100;
+  //per=(curError-setpoint)/100;
   output = pitch.calculatePID(curError);
-  setpoint1=(topr + botr)/2-(topl-botl)/2;
-  output = yaw.calculatePID(setpoint1);
+  //setpoint1=(topr + botr)/2-(topl-botl)/2;
+  //output = yaw.calculatePID(setpoint1);
   
   Serial.print("output = ");
-  Serial.println(per);
-  
+  Serial.println(output);
+
   
   pitchServo.write(90 - output);
 }
