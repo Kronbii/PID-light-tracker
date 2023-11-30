@@ -1,12 +1,12 @@
-//////////////////////////////Libraries Used/////////////////////////////////
+//////////////////////////////Libraries Used////////////////////////////////
   #include "LightPID.h"
   #include <Servo.h>
 ////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////Servo Variables/////////////////////////////////
+//////////////////////////////Servo Variables///////////////////////////////
   Servo pitchServo;
   const int pitchPin = 6;
-/////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////Sensor Values/////////////////////////////////
   double botr, botl, topr, topl;
@@ -35,6 +35,9 @@ void setup() {
 
   //Set the servo initially vertical (90 degrees)
   pitchServo.write(90);
+
+  //Takes the reference of the output angle and the resolution of scan as input
+  pitchScan(initAngle, 10);
 }
 
 void loop() {
@@ -55,41 +58,39 @@ void loop() {
   pitchServo.write(90 - output);
 }
 
+//Function to read values of sensors
+void readSensors(){
+  topl = analogRead(A0);
+  topr = analogRead(A5); //change to A1
+  botl = analogRead(A2);
+  botr = analogRead(A3);
+}
 
-//////////////////////////////Functions///////////////////////////////////
-  //Function to read values of sensors
-  void readSensors(){
-    topl = analogRead(A0);
-    topr = analogRead(A5); //change to A1
-    botl = analogRead(A2);
-    botr = analogRead(A3);
-  }
+//Function to initally scan the area to detect the initial source of light
+void pitchScan(int& initAngle, int res){
+  //initial reading of sensors
+  readSensors();
 
-  void pitchScan(int& initAngle){
-    //initial reading of sensors
+  //variable to store initial reading
+  double init = botr + topr + topl + botl;
+  
+  //variable to store reading during runtime
+  double temp;
+
+  for (int i=0; i<180; i = i + res){
+    //write servo angle
+    pitch.write(i);
+
+    //read sensors to find the intensity of light
     readSensors();
-  
-    //variable to store reading during runtime
-    double temp;
 
-    //variable to store initial reading
-    double init = botr + topr + topl + botl;
-  
-    for (int i=0; i<180; i++){
-      //write servo angle
-      pitch.write(i);
+    //calculate intensit of light
+    temp = botr + topr + topl + botl;
 
-      //read sensors to find the intensity of light
-      readSensors();
+    //update the maximum reading of sensors
+    if (temp > init) initAngle = i;
 
-      //calculate intensit of light
-      temp = botr + topr + topl + botl;
-
-      //update the maximum reading of sensors
-      if (temp > init) initAngle = i;
-
-      //control speed of servo
-      delay(15);
-    }
+    //control speed of servo
+    delay(15);
   }
-////////////////////////////////////////////////////////////////////////////
+}
