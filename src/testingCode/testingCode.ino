@@ -6,7 +6,7 @@
 //////////////////////////////Servo Variables/////////////////////////////////
   Servo yawServo;
   Servo pitchServo;
-  const int yawPin = 10;
+  const int yawPin = 9;
   const int pitchPin = 6;
 /////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@ float setpoint1;
 float error1;
 //////////////////////////////PID Objects/////////////////////////////////
   Yaw yaw(0.07, 00.00018, 0.002, -90, 90);
-  Pitch pitch(0.07 , 0.00018, 0.002, -45, 60);
+  Pitch pitch(0.07 , 0.00018, 0.002, -70, 55);
 ////////////////////////////////////////////////////////////////////////////
 int per;
 void setup() {
@@ -50,16 +50,22 @@ void loop() {
   feedback = (topr + topl)/2.00;
   
   curError = setpoint - feedback;
-  //per=(curError-setpoint)/100;
+
   output = pitch.calculatePID(curError);
-  //setpoint1=(topr + botr)/2-(topl-botl)/2;
-  //output = yaw.calculatePID(setpoint1);
   
   Serial.print("output = ");
   Serial.println(output);
 
   
   pitchServo.write(90 - output);
+
+  setpoint = (botr + topr)/2;
+  feedback = (botl + topl)/2;
+
+  curError = setpoint - feedback;
+
+  output = yaw.calculatePID(curError);
+  yawServo.write(output);
 }
 
 void readSensors(){
@@ -79,8 +85,8 @@ void readSensors(){
 }
 
 /////FILLER FUNCTIONS///////
-/*
-void yawCode(){
+  /*
+  void yawCode(){
   readSensors();
 
   //update error values for yaw
