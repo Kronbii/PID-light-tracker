@@ -8,13 +8,15 @@
   Servo pitchServo;
   const int yawPin = 10;
   const int pitchPin = 6;
-////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////Sensor Values/////////////////////////////////
   double botr, botl, topr, topl;
   double setpoint, feedback;
   double output;
   double curError;
+  int initAngle =0;
+  int tiltAngle =0;
 ////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////PID Objects/////////////////////////////////
@@ -74,7 +76,7 @@ void readSensors(){
       */
 }
 
-/////FILLER FUNCTION///////
+/////FILLER FUNCTIONS///////
 void yawCode(){
   readSensors();
 
@@ -88,4 +90,60 @@ void yawCode(){
   output = yaw.calculatePID(curError);
  
   yawServo.write(90 + output);
+}
+
+void yawScan(int& initAngle){
+  //initial reading of sensors
+  readSensors();
+  
+  //variable to store reading during runtime
+  double temp;
+
+  //variable to store initial reading
+  double init = botr + topr + topl + botl;
+
+  for (int i=0; i<180; i++){
+    //write servo angle
+    yaw.write(i);
+
+    //read sensors to find the intensity of light
+    readSensors();
+
+    //calculate intensit of light
+    temp = botr + topr + topl + botl;
+
+    //update the maximum reading of sensors
+    if (temp > init) initAngle = i;
+
+    //control speed of servo
+    delay(15);
+  }
+}
+
+void pitchScan(int& initAngle){
+  //initial reading of sensors
+  readSensors();
+  
+  //variable to store reading during runtime
+  double temp;
+
+  //variable to store initial reading
+  double init = botr + topr + topl + botl;
+  
+  for (int i=0; i<180; i++){
+    //write servo angle
+    pitch.write(i);
+
+    //read sensors to find the intensity of light
+    readSensors();
+
+    //calculate intensit of light
+    temp = botr + topr + topl + botl;
+
+    //update the maximum reading of sensors
+    if (temp > init) initAngle = i;
+
+    //control speed of servo
+    delay(15);
+  }
 }
