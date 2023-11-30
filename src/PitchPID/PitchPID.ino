@@ -18,6 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////PID Objects///////////////////////////////////
+  //Takes as input (Kp, Kd, Ki, minimum output, maximum output)
   Pitch pitch(0.07 , 0.00018, 0.002, -70, 55);
 ////////////////////////////////////////////////////////////////////////////
 
@@ -79,7 +80,7 @@ void pitchScan(int& initAngle, int res){
 
   for (int i=0; i<180; i = i + res){
     //write servo angle
-    pitch.write(i);
+    pitchServo.write(i);
 
     //read sensors to find the intensity of light
     readSensors();
