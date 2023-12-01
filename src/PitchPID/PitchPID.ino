@@ -20,6 +20,10 @@
 //////////////////////////////PID Objects///////////////////////////////////
   //Takes as input (Kp, Kd, Ki, minimum output, maximum output)
   Pitch pitch(0.07 , 0.00018, 0.002, -70, 55);
+
+  int originTime;
+  int curTime;
+  int rstTime = 20000;
 ////////////////////////////////////////////////////////////////////////////
 
 void setup() {
@@ -39,6 +43,9 @@ void setup() {
 
   //Takes the reference of the output angle and the resolution of scan as input
   pitchScan(initAngle, 10);
+
+  //Origin time
+  originTime = millis();
 }
 
 void loop() {
@@ -57,6 +64,11 @@ void loop() {
 
   //Move the servo to the caluclated PID angle
   pitchServo.write(90 - output);
+
+  //reset integration error
+  if ((millis() - originTime) > rstTime){
+    pitch.resetIntegralError();
+  }
 }
 
 //Function to read values of sensors

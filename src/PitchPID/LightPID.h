@@ -32,4 +32,9 @@ class Pitch {
     else if (output < min) output = min;
     return output;
   }
+
+  //Setters
+  void resetIntegralError(){
+    this->integError = 0;
+  }
 };
