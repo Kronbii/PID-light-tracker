@@ -42,7 +42,7 @@ void setup() {
   pitchServo.write(90);
 
   //Takes the reference of the output angle and the resolution of scan as input
-  pitchScan(initAngle, 10);
+  //pitchScan(initAngle, 10);
 
   //Origin time
   originTime = millis();
@@ -68,6 +68,7 @@ void loop() {
   //reset integration error
   if ((millis() - originTime) > rstTime){
     pitch.resetIntegralError();
+    originTime = 0;
   }
 }
 
