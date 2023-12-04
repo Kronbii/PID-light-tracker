@@ -20,8 +20,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////PID Objects/////////////////////////////////
-  Yaw yaw(0.07, 00.00018, 0.002, -90, 90);
-  Pitch pitch(0.07 , 0.00018, 0.002, -70, 55);
+  Yaw yaw(0.1, 0.00018, 0.0007, -90, 90); //0.1, 0.00018, 0.0007
+  Pitch pitch(0.03 , 0.00018, 0.00035, -70, 55); //0.07, 0.00018, 0.002
 ////////////////////////////////////////////////////////////////////////////
 
 void setup() {
@@ -39,6 +39,7 @@ void setup() {
 
   yawServo.write(90);
   pitchServo.write(90);
+
 }
 
 void loop() {
@@ -52,10 +53,6 @@ void loop() {
 
   output = pitch.calculatePID(curError);
   
-  Serial.print("output = ");
-  Serial.println(output);
-
-  
   pitchServo.write(90 - output);
 
   setpoint = (botr + topr)/2;
@@ -64,16 +61,15 @@ void loop() {
   curError = setpoint - feedback;
 
   output = yaw.calculatePID(curError);
-  yawServo.write(output);
+  yawServo.write(90- output);
 }
 
 void readSensors(){
-  topl = analogRead(A0);
-  topr = analogRead(A5); //change to A1
-  botl = analogRead(A2);
-  botr = analogRead(A3);
-
-  /*
+  topr = analogRead(A0);
+  topl = analogRead(A5); //change to A1
+  botr = analogRead(A2);
+  botl = analogRead(A3);
+/*
   Serial.println(botr);
    Serial.println(botl);
     Serial.println(topr);
