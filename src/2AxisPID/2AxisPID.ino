@@ -69,14 +69,6 @@ void readSensors(){
   topl = analogRead(A5); //change to A1
   botr = analogRead(A2);
   botl = analogRead(A3);
-/*
-  Serial.println(botr);
-   Serial.println(botl);
-    Serial.println(topr);
-     Serial.println(topl);
-      Serial.println("");
-      delay(500);
-      */
 }
 
 /////FILLER FUNCTIONS///////
