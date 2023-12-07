@@ -20,6 +20,9 @@ class Pan {
     this->error = error;
   }
 
+  void integReset(){
+    this->integError = 0;
+  }
   double calculatePID(){
     double output;
     derivError = this->error - prevError;

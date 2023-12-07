@@ -19,9 +19,9 @@
   int tiltAngle =0;
   bool orientation;// 0 for [0, 180] / 1 for [180, 360]
 ////////////////////////////////////////////////////////////////////////////
-
+float originTime, curTime;
 //////////////////////////////PID Objects///////////////////////////////////
-  Pan pan(0.1, 0.00018, 0.0007, -90, 90); //0.1, 0.00018, 0.0007
+  Pan pan(0.075, 0.00045, 0.00035, -90, 90); //0.1, 0.00018, 0.0007
   Pitch pitch(0.03 , 0.00018, 0.00035, -70, 55); //0.07, 0.00018, 0.002
 ////////////////////////////////////////////////////////////////////////////
 
@@ -41,10 +41,12 @@ void setup() {
   //Initial servo positions
   panServo.write(90);
   pitchServo.write(90);
-
+  //delay(9000000);
+originTime = millis();
 }
 
 void loop() {
+  //if ((millis()-originTime) >10000) pan.integReset();
   //////////////////////////////Control of the tilt mechanism/////////////////////////////////
   //pitch control
   readSensors();
@@ -61,12 +63,13 @@ void loop() {
   output = pitch.calculatePID();
 
   //Determening the hemisphere in which the tilted system is currently located
-  if (output > 0) orientation = 1;
-  else if (output <0) orientation = 0;
+  if (output > 0) orientation = true;
+  else if (output < 0) orientation = false;
   
   pitchServo.write(90 - output);
 
   //////////////////////////////Control of the pan mechanism/////////////////////////////////
+  readSensors();
   setpoint = (botr + topr)/2.00;
   feedback = (botl + topl)/2.00;
 
@@ -76,7 +79,7 @@ void loop() {
   output = pan.calculatePID();
 
   //If the system is the the [180, 360] hemisphere, the output is inverted
-  if (orientation == 1) output = -output;
+  if (orientation == true) output = -output;
   panServo.write(90 - output);
 }
 
