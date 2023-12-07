@@ -33,11 +33,3 @@ class Pitch : public Pan{
   public:
   Pitch(double kp, double kd, double ki, double min, double max) : Pan(kp, kd, ki, min, max) {}
 };
-
-double botr, botl, topr, topl;
-void readSensors(){
-  topr = analogRead(A0);
-  topl = analogRead(A5); //change to A1
-  botr = analogRead(A2);
-  botl = analogRead(A3);
-}
