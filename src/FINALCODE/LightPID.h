@@ -16,13 +16,16 @@ class Pan {
     this->max = max;
   }
 
-  double calculatePID(double error){
-    double output;
-    prevError = this->error;
+  void setError(double error){
     this->error = error;
+  }
+
+  double calculatePID(){
+    double output;
     derivError = this->error - prevError;
     integError += this->error;
     output = kp*this->error + kd*derivError + ki*integError;
+    prevError = this->error;
     if (output > max) output = max;
     else if (output < min) output = min;
     return output;
