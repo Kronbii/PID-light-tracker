@@ -1,3 +1,9 @@
+# IMPORTANT NOTES (READ THIS)
+- In the video folder, a YouTube video link is attached in a text file in case the uploaded video didn't download due to internet issues.
+- Any file that isn't viewable on github, please download raw file and view it on your local machine.
+- Uploaded SolidWorks files only work for 2023 version of SolidWorks.
+
+
 # Contributors: 
 Rami Kronbi - 20210359
 
