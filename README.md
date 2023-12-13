@@ -18,6 +18,8 @@ Wassim Ghaddar  - 20210586
 
 - CAD Models: all SolidWorks and STL files for the robot design along with some pictures of the printed model. NOTE: use SoldiWorks2023 to open the files
 
+- Project Simulation: the Proteus simulation for the project.
+
 - Project Report: the final project report to be submitted for the course submission.
 
 - Project Video: the 2-3 minute video done to demonstrate the project clearly.
