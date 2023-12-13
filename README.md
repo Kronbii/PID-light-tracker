@@ -16,13 +16,13 @@ Wassim Ghaddar  - 20210586
 # Files Description:
 - SRC: source Arduino code used for PID control
 
-- CAD Models: all SolidWorks and STL files for the robot design along with some pictures of the printed model. NOTE: use SoldiWorks2023 to open the files
+- CAD Models: All SolidWorks and STL files for the robot design along with some pictures of the printed model. NOTE: use SoldiWorks2023 to open the files
 
-- Project Simulation: the Proteus simulation for the project.
+- Project Simulation: The Proteus simulation for the project.
 
-- Project Report: the final project report to be submitted for the course submission.
+- Project Report: The final project report to be submitted for the course submission.
 
-- Project Video: the 2-3 minute video done to demonstrate the project clearly.
+- Project Video: The 2-3 minute video done to demonstrate the project clearly.
 
 # PID-Light-Tracker
 The goal of this project is to build a robot capable of autonomously tracking a light source using PID (Proportional-Integral-Derivative) control. The robot will be equipped with two servo motors that control its yaw and pitch movements, allowing it to adjust its orientation and track the light source accurately. The system will include components such as a robot chassis, servo motors, a light sensor, a microcontroller, and a power supply. The microcontroller will process the sensor readings, calculate the appropriate servo movements using the PID control algorithm, and generate the control signals for the servo motors. By implementing this project, you will create a robot that can track a light source with precision and learn about concepts such as PID control, sensor integration, and servo motor control.
