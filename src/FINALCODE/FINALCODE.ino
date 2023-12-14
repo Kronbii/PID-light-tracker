@@ -45,14 +45,14 @@ void setup() {
 
 void loop() {
   //////////////////////////////Control of the tilt mechanism/////////////////////////////////
-  //pitch control
+  //reading sensor inputs
   readSensors();
   
   //Calculating the systems input and feedback
   setpoint = (botr + botl)/2.00;
   feedback = (topr + topl)/2.00;
   
-  //Calculating error 
+  //Calculating and setting the error 
   curError = setpoint - feedback;
   pitch.setError(curError);
 
@@ -62,21 +62,29 @@ void loop() {
   //Determening the hemisphere in which the tilted system is currently located
   if (output > 0) orientation = true;
   else if (output < 0) orientation = false;
-  
+
+  //move the servo to the updated position
   pitchServo.write(90 - output);
 
   //////////////////////////////Control of the pan mechanism/////////////////////////////////
+  //reading sensor inputs
   readSensors();
+
+  //calculating the systems input and feedback
   setpoint = (botr + topr)/2.00;
   feedback = (botl + topl)/2.00;
 
+  //calculating and setting the error
   curError = setpoint - feedback;
   pan.setError(curError);
 
+  //using the calculate method to get the output of the PID
   output = pan.calculatePID();
 
   //If the system is the the [180, 360] hemisphere, the output is inverted
   if (orientation == true) output = -output;
+
+  //move the servo to the updated position
   panServo.write(90 - output);
 }
 
