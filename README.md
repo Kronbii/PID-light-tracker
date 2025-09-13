@@ -47,5 +47,5 @@ Watch the full demo here:
 
 ## 👥 Contributors
 
-* **Rami Kronbi** – 20210359
-* **Wassim Ghaddar** – 20210586
+* **Rami Kronbi**
+* **Wassim Ghaddar**
