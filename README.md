@@ -24,11 +24,11 @@ By developing this project, we explored:
 
 ## 📂 Repository Contents
 
-* **`SRC/`** → Arduino source code for PID control.
-* **`CAD Models/`** → SolidWorks 2023 files, STL models, and pictures of the printed robot.
-* **`Project Simulation/`** → Proteus simulation files.
-* **`Project Report/`** → Final course report.
-* **`Project Video/`** → Demonstration video of the working robot.
+* **`src/`** → Arduino source code for PID control.
+* **`CAD-models/`** → SolidWorks 2023 files, STL models, and pictures of the printed robot.
+* **`proteus-simulation/`** → Proteus simulation files.
+* **`project-report/`** → Final course report.
+* **`project-video/`** → Demonstration video of the working robot.
 
 ⚠️ **Notes:**
 
